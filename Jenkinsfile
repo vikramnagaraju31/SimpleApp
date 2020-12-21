@@ -12,10 +12,9 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('Unit_Test') {
+        stage('Code_Review') {
             steps {
-                sh 'mvn test'
-                junit 'target/surefire-reports/*.xml'
+                sh 'mvn -P metrics pmd:pmd'
             }
         }
         stage('Metric_Check') {

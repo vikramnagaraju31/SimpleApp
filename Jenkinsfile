@@ -1,9 +1,5 @@
 pipeline {
     
-    environment {
-        dockerImage = ''
-    }
-    
     agent any
 
     tools{
@@ -16,11 +12,9 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Building Docker Image') {
-            steps{
-                script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                }
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t sampleapp:latest .'
             }
         }
     }

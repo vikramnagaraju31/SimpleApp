@@ -17,6 +17,11 @@ pipeline {
                 sh 'mvn package'
             }
         }
+        stage('Metric_Check') {
+            steps {
+                sh 'mvn cobertura:cobertura -D cobertura.report.format=xml'
+            }
+        }
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t 25123103/sampleapp:1.0.0 .'

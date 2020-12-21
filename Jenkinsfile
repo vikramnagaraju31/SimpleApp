@@ -6,10 +6,19 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Build Project') {
             steps {
                 sh 'mvn clean install'
             }
         }
+        stage('Building Docker Image') {
+            steps{
+                script {
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                }
+            }
+        }
     }
+
 }
+

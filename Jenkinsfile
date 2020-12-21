@@ -8,14 +8,10 @@ pipeline {
 
     stages {
         stage('Build Project') {
-            steps {
-                sh 'mvn clean install'
-            }
+            sh 'mvn clean install'
         }
         stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t 25123103/sampleapp:1.0.0 .'
-            }
+            sh 'docker build -t 25123103/sampleapp:1.0.0 .'
         }
         stage('Push Docker Image') {
             withCredentials([string(credentialsId: 'dockerhubpwd', passwordVariable: 'dockerhubpwd')]) {

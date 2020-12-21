@@ -12,6 +12,12 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+        stage('Unit_Test') {
+            steps {
+                sh 'mvn test'
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
         stage('Metric_Check') {
             steps {
                 sh 'mvn cobertura:cobertura -D cobertura.report.format=xml'

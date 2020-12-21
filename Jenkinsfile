@@ -12,14 +12,14 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-        stage('Package') {
-            steps {
-                sh 'mvn package'
-            }
-        }
         stage('Metric_Check') {
             steps {
                 sh 'mvn cobertura:cobertura -D cobertura.report.format=xml'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package'
             }
         }
         stage('Build Docker Image') {

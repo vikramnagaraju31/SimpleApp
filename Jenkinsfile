@@ -7,9 +7,14 @@ pipeline {
     }
 
     stages {
-        stage('Build Project') {
+        stage('Compile') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn compile'
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn package'
             }
         }
         stage('Build Docker Image') {
@@ -26,6 +31,5 @@ pipeline {
             }
         }
     }
-
 }
 

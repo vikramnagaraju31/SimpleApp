@@ -29,6 +29,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
+                echo "$BUILD_NUMBER"
                 sh 'docker build -t 25123103/sampleapp:$BUILD_NUMBER .'
             }
         }

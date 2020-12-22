@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t 25123103/sampleapp:1.0.0 .'
+                sh 'docker build -t 25123103/sampleapp:$BUILD_NUMBER .'
             }
         }
         stage('Push Docker Image') {

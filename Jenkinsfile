@@ -40,6 +40,13 @@ pipeline {
                 sh 'docker push 25123103/sampleapp:1.0.0'
             }
         }
+        stage('Deploy On Docker Server') {
+            steps {
+            	def dockerRunCommand = 'docker run -d -p 80:8080 25123103/sampleapp:1.0.0'
+            	sshagent(['docker_server']) {
+            		sh 'ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-66-239-25.ap-south-1.compute.amazonaws.com ${dockerRunCommand}'
+            	}
+            }
+        }
     }
 }
-

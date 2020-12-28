@@ -47,7 +47,7 @@ pipeline {
             		dockerRunCommand = 'sudo docker run -d -p 80:8080 --name sample-app 25123103/sampleapp:1.0.0'
             	}
             	sshagent(['docker_server']) {
-            		sh "ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-66-239-25.ap-south-1.compute.amazonaws.com ${dockerRunCommand}"
+            		sh "ssh -o StrictHostKeyChecking=no ubuntu@ec2-65-0-5-6.ap-south-1.compute.amazonaws.com ${dockerRunCommand}"
             	}
             }
         }

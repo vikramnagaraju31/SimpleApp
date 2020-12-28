@@ -44,7 +44,7 @@ pipeline {
         stage('Deploy On Docker Server') {
             steps {
             	script {
-            		dockerRunCommand = 'sudo su; docker rm -f sample-app; docker run -d -p 80:8080 --name sample-app 25123103/sampleapp:1.0.0'
+            		dockerRunCommand = 'sudo su; docker ps -q --filter "name=sample-app" | grep -q . && docker rm -f sample-app || echo Not Found; docker run -d -p 80:8080 --name sample-app 25123103/sampleapp:1.0.0'
             	}
             	sshagent(['docker_server']) {
             		sh "ssh -o StrictHostKeyChecking=no ubuntu@ec2-52-66-239-25.ap-south-1.compute.amazonaws.com ${dockerRunCommand}"

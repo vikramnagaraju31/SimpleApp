@@ -63,7 +63,7 @@ pipeline {
         }
         stage('Email Notification') {
             steps{
-                emailext subject: 'Subject', body: 'Body', to: 'vikramnagaraju31@gmail.com', mimeType: 'text/html'
+                emailext subject: "Email Rreport from '${env.JOB_NAME}'", body: readFile("target/surefire-reports/emailable-report.html"), to: 'vikramnagaraju31@gmail.com', mimeType: 'text/html'
             }
 
         }

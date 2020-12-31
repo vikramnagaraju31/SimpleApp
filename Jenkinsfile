@@ -7,6 +7,10 @@ pipeline {
     	maven "3.6.3"
     }
 
+    environment {
+        scannerHome = tool 'SonarQubeScanner'
+    }
+
     stages {
         stage('Compile') {
             steps {

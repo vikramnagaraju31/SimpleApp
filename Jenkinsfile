@@ -61,5 +61,11 @@ pipeline {
                 sh 'docker push 25123103/sampleapp:1.0.0'
             }
         }
+        stage('Email Notification') {
+            steps{
+                emailext subject: 'Subject', body: 'Body', to: 'vikramnagaraju31@gmail.com', mimeType: 'text/html'
+            }
+
+        }
     }
 }

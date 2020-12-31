@@ -23,6 +23,11 @@ pipeline {
                 sh 'mvn cobertura:cobertura -D cobertura.report.format=xml'
             }
         }
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
         stage('SonarQube Analysis') {
             steps 
             {
@@ -41,11 +46,6 @@ pipeline {
                         }
                     }
                 }
-            }
-        }
-        stage('Package') {
-            steps {
-                sh 'mvn package'
             }
         }
         stage('Build Docker Image') {

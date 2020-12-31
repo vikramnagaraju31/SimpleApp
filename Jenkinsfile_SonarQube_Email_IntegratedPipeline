@@ -61,5 +61,11 @@ pipeline {
                 sh 'docker push 25123103/sampleapp:1.0.0'
             }
         }
+        stage('Email Notification') {
+            steps{
+                emailext subject: "Email Rreport from '${env.JOB_NAME}'", body: readFile("target/sonar/report-task.txt"), to: 'vikramnagaraju31@gmail.com', mimeType: 'text/html'
+            }
+
+        }
     }
 }

@@ -46,6 +46,10 @@ pipeline {
                     sh 'docker login -u 25123103 -p ${dockerhubpwd}'
                 }
                 sh 'docker push 25123103/sampleapp:1.0.0'
+                script
+                {
+                    echo 'Hello'
+                }
             }
         }
     }

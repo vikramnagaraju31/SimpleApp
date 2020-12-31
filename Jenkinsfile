@@ -7,10 +7,6 @@ pipeline {
     	maven "3.6.3"
     }
 
-    environment {
-        scannerHome = tool 'SonarQubeScanner'
-    }
-
     stages {
         stage('Compile') {
             steps {
@@ -34,7 +30,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'sonar_jenkins_token') {
+                withSonarQubeEnv(credentialsId: 'sonar_jenkins_token', installationName: 'SonarQubeScanner') {
                     sh 'mvn sonar:sonar'
                 }
             }

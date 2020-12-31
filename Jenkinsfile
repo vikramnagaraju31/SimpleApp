@@ -35,6 +35,10 @@ pipeline {
                     timeout(time: 1, unit: 'HOURS' )
                     {
                         def qq = waitForQualityGate()
+                        if (qq.status != 'OK')
+                        {
+                            error 'Pipeline aborted'
+                        }
                     }
                 }
             }

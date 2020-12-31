@@ -28,27 +28,11 @@ pipeline {
                 sh 'mvn package'
             }
         }
-        stage('Build Docker Image') {
+        stage('SonarQube Analysis') {
             steps {
-                sh 'docker build -t 25123103/sampleapp:1.0.0 .'
-            }
-        }
-        stage('Push Docker Image') {
-            steps {
-                withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-                    sh 'docker login -u 25123103 -p ${dockerhubpwd}'
+                withSonarQubeEnv(credentialsId: 'sonar_jenkins_token') {
+                    sh 'mvn sonar:sonar'
                 }
-                sh 'docker push 25123103/sampleapp:1.0.0'
-            }
-        }
-        stage('Deploy On Docker Server') {
-            steps {
-            	script {
-            		dockerRunCommand = 'sudo docker run -d -p 80:8080 --name sample-app 25123103/sampleapp:1.0.0'
-            	}
-            	sshagent(['docker_server']) {
-            		sh "ssh -o StrictHostKeyChecking=no ubuntu@ec2-65-0-5-6.ap-south-1.compute.amazonaws.com ${dockerRunCommand}"
-            	}
             }
         }
     }
